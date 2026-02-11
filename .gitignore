@@ -1,0 +1,59 @@
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+
+# AssetStore packages
+/[Aa]ssets/AssetStoreTools*
+
+# Gradle
+.gradle/
+
+# Visual Studio / Rider
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.ignore
+
+# 個別設定
+*.tga
+.vscode/
+UserSettings/
+Assets/_Recovery
+Assets/_ThirdParty
+Assets/_Recovery.meta
+Assets/_ThirdParty.meta
+Assets/_Project/Animations
+Assets/_Project/Prefab
+Assets/_Project/Scenes
+Assets/_Project/Animations.meta
+Assets/_Project/Prefab.meta
+Assets/_Project/Scenes.meta
+
+
+
