@@ -49,19 +49,18 @@ public class EnemyAttackState : IEnemyState
             return;
         }
 
-        Transform player = _enemy.DetectionAreaCollider.PlayerObjects[0].transform;
+        Transform targetTransform = _enemy.DetectionAreaCollider.PlayerObjects[0].transform;
+        Vector3 targetPos = targetTransform.position;
 
-        float stopDistance = 1.5f; // 衝突しない距離
-
-        // 敵 → プレイヤー の方向
-        Vector3 directionToPlayer =
-            (player.position - _enemy.transform.position).normalized;
-
-        // プレイヤーの手前で止まる位置
-        Vector3 targetPos =
-            player.position - directionToPlayer * stopDistance;
-
+        _enemy.EnemyAnimationController.StartWalkAnimation();
+        _enemy.EnemyMovementController.SetRotationTypeMove();
         _enemy.EnemyMovementController.Move(targetPos);
+
+        await DelayOrArriveAsync(token);
+
+        _enemy.EnemyAnimationController.StopWalkAnimation();
+        _enemy.EnemyMovementController.SetRotationTypeTarget(targetTransform);
+        _enemy.EnemyAnimationController.SetAttackTrigger();
 
         try
         {
@@ -72,6 +71,35 @@ public class EnemyAttackState : IEnemyState
 
         }
 
+        _enemy.EnemyMovementController.SetRotationTypeLock();
         IsFinished = true;
+    }
+
+    private async UniTask DelayOrArriveAsync(CancellationToken token)
+    {
+        try
+        {
+            //var timeout = UniTask.Delay(5000, cancellationToken: token);
+
+            while (true)
+            {
+                token.ThrowIfCancellationRequested();
+
+                if (_enemy.EnemyMovementController.HasArrived())
+                {
+                    _enemy.EnemyAnimationController.StopWalkAnimation();
+                    break;
+                }
+
+                //if (timeout.Status == UniTaskStatus.Succeeded)
+                //break;
+
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
+            }
+        }
+        catch
+        {
+            return;
+        }
     }
 }

@@ -11,7 +11,7 @@ public class PlayerDamageState : IState
 
     public void Enter()
     {
-
+        Debug.Log("Enter Damage State");
     }
 
     public void Exit()

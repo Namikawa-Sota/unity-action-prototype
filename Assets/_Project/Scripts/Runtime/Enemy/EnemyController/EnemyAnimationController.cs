@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class EnemyAnimationController : MonoBehaviour
 {
-    //_enemy.EnemyAnimator.SetBool("IsMoving", true);
-
     private Animator _enemyAnimator;
 
     private void Awake()
@@ -14,5 +12,20 @@ public class EnemyAnimationController : MonoBehaviour
     public void Attack()
     {
 
+    }
+
+    public void StartWalkAnimation()
+    {
+        _enemyAnimator.SetBool("IsMoving", true);
+    }
+
+    public void StopWalkAnimation()
+    {
+        _enemyAnimator.SetBool("IsMoving", false);
+    }
+
+    public void SetAttackTrigger()
+    {
+        _enemyAnimator.SetTrigger("Attack");
     }
 }

@@ -21,6 +21,7 @@ public class EnemySearchState : IEnemyState
 
         var pos = _enemy.EnemyMovementController.GetRandomPosition();
         _enemy.EnemyMovementController.Move(pos);
+        _enemy.EnemyAnimationController.StartWalkAnimation();
         _enemy.EnemyMovementController.SetRotationTypeMove();
 
         DelayOrArriveAsync(_cts.Token).Forget();
@@ -30,6 +31,7 @@ public class EnemySearchState : IEnemyState
     {
         //Debug.Log("Exit Idle");
         _enemy.EnemyMovementController.SetRotationTypeLock();
+        _enemy.EnemyAnimationController.StopWalkAnimation();
 
         _cts?.Cancel();
         _cts?.Dispose();
@@ -55,6 +57,7 @@ public class EnemySearchState : IEnemyState
 
                 if (_enemy.EnemyMovementController.HasArrived())
                 {
+                    _enemy.EnemyAnimationController.StopWalkAnimation();
                     await UniTask.Delay(1000, cancellationToken: token);
                     break;
                 }

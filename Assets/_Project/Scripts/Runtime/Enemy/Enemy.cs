@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 
     public EnemyStateController StateController { get; private set; }
     public EnemyMovementController EnemyMovementController { get; private set; }
+    public EnemyAnimationController EnemyAnimationController { get; private set; }
     public DetectionAreaCollider DetectionAreaCollider { get; private set; }
     public EnemyStatus EnemyStatus { get; private set; }
     public Transform EnemyTransform { get; private set; }
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         EnemyMovementController = GetComponent<EnemyMovementController>();
+        EnemyAnimationController = GetComponent<EnemyAnimationController>();
         DetectionAreaCollider = detectionCollider.GetComponent<DetectionAreaCollider>();
         EnemyStatus = GetComponent<EnemyStatus>();
         EnemyTransform = transform;
