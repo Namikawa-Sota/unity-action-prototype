@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
@@ -13,7 +15,8 @@ public class AttackCollider : MonoBehaviour
     [SerializeField] private CharacterType _targetCharaType;
     private BoxCollider _boxCollider;
     private int _damage;
-    private float _hitStop;
+    private float _damageHitStop;
+    private float _attackHitStop;
     private String _targetTag;
 
     [SerializeField] private List<GameObject> _hitEnemies = new List<GameObject>();
@@ -37,7 +40,8 @@ public class AttackCollider : MonoBehaviour
     {
         _hitEnemies.Clear();
         _damage = data.AttackDamage;
-        _hitStop = data.HitStop;
+        _attackHitStop = data.AttackHitStop;
+        _damageHitStop = data.DamageHitStop;
         _boxCollider.enabled = true;
     }
 
@@ -51,12 +55,11 @@ public class AttackCollider : MonoBehaviour
         if (other.CompareTag(_targetTag) && !_hitEnemies.Contains(other.gameObject))
         {
             GameObject enemy = other.gameObject;
-            CharacterStatus characterStatus = enemy.GetComponent<CharacterStatus>();
+            CharacterStatus enemyStatus = enemy.GetComponent<CharacterStatus>();
 
-            if (characterStatus != null)
+            if (enemyStatus != null)
             {
-                characterStatus.TakeDamage(_damage);
-                HitStopManager.Instance.PlayHitStop(_hitStop);
+                enemyStatus.TakeDamage(_damage);
                 _hitEnemies.Add(enemy);
             }
         }

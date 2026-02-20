@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     public IState AttackState { get; private set; }
     public IState AvoidState { get; private set; }
     public IState DamageState { get; private set; }
+    public IState DeathState { get; private set; }
 
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         this.AttackState = new PlayerAttackState(this);
         this.AvoidState = new PlayerAvoidState(this);
         this.DamageState = new PlayerDamageState(this);
+        this.DeathState = new PlayerDeathState(this);
     }
 
     private void Start()

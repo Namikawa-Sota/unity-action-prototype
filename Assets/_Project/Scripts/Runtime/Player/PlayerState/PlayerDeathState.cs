@@ -19,8 +19,6 @@ public class PlayerDeathState : IState
 
     }
 
-
-
     public void Update()
     {
 
